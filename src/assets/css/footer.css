@@ -1,0 +1,6 @@
+.footerOutline{
+    border: 1px solid #fff;
+    border-top-left-radius: 3rem;
+    border-top-right-radius: 3rem;
+    background-color: rgb(248, 248, 248);
+}

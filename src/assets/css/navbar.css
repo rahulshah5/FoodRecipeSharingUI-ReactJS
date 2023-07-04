@@ -1,0 +1,34 @@
+.navlink{
+    text-decoration: none;
+    color: white;
+    background-color: none;
+    /* padding: 0.6rem 1rem; */
+    margin:1px;
+    width: 80%;
+    height: 8vh;
+}
+.navBg{
+    background: #0e3568;
+    min-height: 100vh;
+    
+}
+.navbarSide{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-center;
+    align-items:center;  
+    position:fixed;
+    padding: 1rem;
+    width: inherit;
+    background: #0e3568;
+}
+.linkColor{
+    color:whitesmoke;
+    padding: 0.4rem 1rem;
+}
+.linkColor:hover{
+    color: rgb(255, 255, 255);
+    background-color: #103f7c;
+    
+}

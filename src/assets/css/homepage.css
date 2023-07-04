@@ -1,0 +1,33 @@
+.featuredComponent{
+    background-color: rgb(249, 249, 249);
+    height: 90vh;
+    width: auto;
+    margin-top: 5vh;
+    padding: 2vh 2vw;
+    
+}
+
+.cateogryComponent{
+    height: 20vh;
+    width: auto;
+    margin-top: 5vh;
+    background-color: rgb(249, 249, 249);
+    padding: 2vh 2vw;
+}
+.iconButton{
+    border: 3px solid #fff ;
+    border-radius: 5px;
+    padding: 0; 
+}
+.gapsAndBackground{
+    background-color: rgb(249, 249, 249);
+    height: 45vh;
+    width: auto;
+    padding: 2vh 2vw;
+    margin-top: 5vh;
+    overflow: hidden;
+}
+
+.seeAllButton{
+    float: right;
+}

@@ -1,0 +1,24 @@
+.recipeOutline{
+    width: 17vw;
+    height: 85%;
+    border: 5px solid #fff;
+    border-radius: 5px;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.recipeTexts{
+    font-size: small;
+    padding: 0;
+    margin: 0;
+}
+.favButton{
+    float: right;
+    background-color:#fff;
+    border: 1px solid white;
+    border-radius: 3px;
+}
+.favButton:hover{
+    background-color: rgb(255, 52, 52);
+    color:#fff;
+}
