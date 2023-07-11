@@ -5,17 +5,54 @@
     background-color: aliceblue;
 
 }
+.bodyBackground{
+    background-color: rgb(246, 251, 255);
+}
 #bodyTitle{
 
     font-size: 1.5rem;
     padding-bottom: 1rem;
 }
-
-titleColor{
+.marginTop{
+    margin-top: 5rem;
+}
+.titleColor{
     color:rgb(255, 113, 31);
+}
+#loginPageImage{
+    border-top-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-top-right-radius: 10%;
+    border-bottom-left-radius: 10%;
 }
 span{
     margin: 0;
     padding: 0;
     font-size: 1.25rem;
+}
+@media only screen and (max-width:576px){
+    .responsiveness{
+        align-items: start;
+        flex-direction: column;
+    }
+    #imageHide{
+        visibility: hidden;
+        height: 0;
+    }
+    .marginTop{
+        margin-top: 1rem;
+    }
+}
+@media only screen and (max-width:768px) and (min-width:577px){
+    .responsiveness{
+        align-items: start;
+        flex-direction: column;
+    }
+    .marginTop{
+        margin-top: 1rem;
+    }
+    #imageHide{
+        visibility: hidden;
+        height: 0;
+    }
 }

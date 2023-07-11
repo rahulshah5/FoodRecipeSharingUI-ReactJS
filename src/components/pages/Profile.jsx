@@ -1,28 +1,57 @@
-import React from 'react';
+import React,{useState} from 'react';
 import MasterLayout from "../layout/MasterLayout";
 import profileImage from '../../assets/images/1.jpeg';
 import '../../assets/css/profilePage.css'
-import RecipePreview from '../layout/RecipePreview';
-import {Col,Button} from 'react-bootstrap';
+import RecipePreview from './fragments/RecipePreview';
+import {Col,Button, Container,Row, Modal, Form } from 'react-bootstrap';
 import '../../assets/css/homepage.css'
-
+import UserDetailsForm from './fragments/UserDetailsForm';
 function ProfileUser(props){
+
+    const [showForm, setShowForm] = useState(false);
+  
+    const handleShowForm = () => {
+      setShowForm(true);
+    };
+  
+    const handleCloseForm = () => {
+      setShowForm(false);
+    };
     return(
         <MasterLayout>
-            <Col lg={12} className='userInfo mt-5 d-flex '>
-                <div className='profilePicture d-flex flex-column align-items-center'>
-                    <img src={profileImage} alt="profile" height='68%' width='auto' />
-                    <caption>Profile Picture</caption>
-                    <Button>Change</Button>
-                </div>
-                <div className='mt-2 px-5 d-flex flex-column '>
-                    <p>Name : XYZ</p>
-                    <p>Email: xyz@gmail.com</p>
-                    <p>Recipes: 123</p>
-                    <p>Favourites: 123</p>
-                    <Button>Edit Profile</Button>
-                </div>
-            </Col>
+            <Container>
+                <Row className='mt-4'>
+                    <Col lg={6} sm={12} className=' d-flex flex-column justify-content-center profilePicture'>
+                        <img src={profileImage} alt="profile" height='70%' width='auto' />
+                        <caption className='text-center'>Profile Picture</caption>
+                    </Col>
+
+                    <Col lg={6} sm={12}>
+                        <div className='mt-4  d-flex flex-column userDetails '>
+                            <h5>User Details</h5>
+                            <p>Name : XYZ</p>
+                            <p>Email: xyz@gmail.com</p>
+                            <p>Recipes: 123</p>
+                            <p>Favourites: 123</p>
+                            <Button onClick={handleShowForm}>Edit Profile</Button>
+
+                            {/* edit profile pop-up form */}
+                            <Modal show={showForm} onHide={handleCloseForm}>
+                                <Modal.Header closeButton>
+                                <Modal.Title>Edit Details</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <UserDetailsForm buttonName='Save'/>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                
+                                </Modal.Footer>
+                            </Modal>
+
+                        </div>
+                    </Col>
+                </Row>
+            </Container>
 
 
             <Col lg={12} className='d-block gapsAndBackground'>

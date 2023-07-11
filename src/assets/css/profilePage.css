@@ -1,8 +1,33 @@
-.userInfo{
-    height: 40vh;
-}
+
 .profilePicture{
     width: 30vw;
-    height: 40vh;
-    font-size: 0.8em;
+    height: auto;
+    font-size: 0.8rem;
+}
+.userDetails{
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+@media only screen and (max-width:420px){
+    .profilePicture{
+        width: 95%;
+        font-size: 0.7rem;
+    }
+    .profilePicture img{
+        width: 100%;
+        height: auto;
+    }
+    .userDetails{
+        font-size: 0.8rem;
+        padding-left: 0.6rem;
+        padding-right: 0.6rem;
+    }
+    .userDetails p{
+        margin-top: 0.4rem;
+        
+    }
+}
+
+
+@media only screen and (max-width:820px) and (min-width:421px) {
 }

@@ -2,13 +2,14 @@ import React from "react";
 import NavbarLayout from "./Navbar";
 import Footer from './Footer'
 import { Container,Row } from "react-bootstrap";
+import '../../assets/css/body.css'
 const MasterLayout=({children})=>{
     return(
-        <Container >
+        <Container className="bodyBackground">
             <Row>
                 <NavbarLayout/>
             </Row>
-            <Row>
+            <Row >
                 {children}
             </Row>
             <Row>

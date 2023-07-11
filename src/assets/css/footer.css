@@ -4,3 +4,10 @@
     border-top-right-radius: 3rem;
     background-color: rgb(248, 248, 248);
 }
+
+@media only screen and (max-width:576px){
+    .footerOutline{
+        flex-direction: column;
+    }
+}
+
