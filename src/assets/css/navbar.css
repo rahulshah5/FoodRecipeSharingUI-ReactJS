@@ -1,11 +1,13 @@
 .navbutton{
-    color: rgb(0, 72, 255);
+    color: rgb(23, 23, 23);
     padding: 0.5rem 1rem;
 }
 #offcanvasNavbar{
     visibility: hidden;
 }
-
+.navbutton:hover{
+    border-bottom: 1px solid black;
+}
 
 @media only screen and (max-width: 420px) {
    

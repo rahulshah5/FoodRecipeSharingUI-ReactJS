@@ -1,0 +1,40 @@
+.basicInfo span{
+    font-size: 1.1rem;
+    font-weight: 400;
+    padding: 0.5rem;
+}
+.sectionBackground{
+    padding: 1rem;
+    background-color: #fff;
+}
+.reviewSection{
+    border: 1px solid #fff;
+
+}
+.topSection{
+    flex-direction: row;
+}
+.textJustify{
+    text-align: justify;
+}
+.padding5{
+    padding: 0 3rem;
+}
+.basicInfo{
+    padding: 1rem;
+}
+@media only screen and (max-width:420px) {
+    .topSection{
+        flex-direction: column;
+    }
+    .padding5{
+        padding: 1rem;
+    }
+    .basicInfo span{
+        font-size: 0.8rem;
+    }
+    .fontSizeSmall{
+        font-size: 0.9rem;
+    }
+    
+}

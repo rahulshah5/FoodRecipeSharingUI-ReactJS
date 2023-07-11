@@ -51,12 +51,12 @@ function NavbarLayout(props) {
             </Col>
             <Col className='d-flex align-items-center justify-content-end'>
                 <Nav variant="pills" className="  navbarResponsive " id="navbarNav">
-                    <NavLink  to="/#" className="text-decoration-none px-3 py-2 navbutton" >Home</NavLink>
-                    <NavLink  to="/login"  className="text-decoration-none px-3 py-2 navbutton">  Login</NavLink>
-                    <NavLink  to="/profile"  className="text-decoration-none px-3 py-2 navbutton">  Profile</NavLink>
-                    <NavLink  to="/post-recipe"  className="text-decoration-none px-3 py-2 navbutton">  Add Recipe</NavLink>
-                    <NavLink  to="/recipe"  className="text-decoration-none px-3 py-2 navbutton">  Recipe</NavLink>
-                    <NavLink  to="/category"  className="text-decoration-none px-3 py-2 navbutton">  Category</NavLink>
+                    <NavLink  to="/#" className="text-decoration-none mx-3 py-2 navbutton" >Home</NavLink>
+                    <NavLink  to="/category"  className="text-decoration-none mx-3 py-2 navbutton">  Category</NavLink>
+                    <NavLink  to="/post-recipe"  className="text-decoration-none mx-3 py-2 navbutton">  Add Recipe</NavLink>
+                    <NavLink  to="/recipe"  className="text-decoration-none mx-3 py-2 navbutton">  Recipe</NavLink>
+                    <NavLink  to="/profile"  className="text-decoration-none mx-3 py-2 navbutton">  Profile</NavLink>
+                    <NavLink  to="/login"  className="text-decoration-none mx-3 py-2 navbutton">  Login</NavLink>
                 </Nav>
 
 {/* off canvas menu for small devices */}
@@ -67,12 +67,12 @@ function NavbarLayout(props) {
                     </Offcanvas.Header>
                     <Offcanvas.Body>
                         <Nav className="flex-column">
-                            <NavLink  to="/#" className="text-decoration-none px-3 py-2 navbutton" >Home</NavLink>
-                            <NavLink  to="/login"  className="text-decoration-none px-3 py-2 navbutton">  Login</NavLink>
-                            <NavLink  to="/profile"  className="text-decoration-none px-3 py-2 navbutton">  Profile</NavLink>
-                            <NavLink  to="/post-recipe"  className="text-decoration-none px-3 py-2 navbutton">  Add Recipe</NavLink>
-                            <NavLink  to="/recipe"  className="text-decoration-none px-3 py-2 navbutton">  Recipe</NavLink>
-                            <NavLink  to="/category"  className="text-decoration-none px-3 py-2 navbutton">  Category</NavLink>
+                            <NavLink  to="/#" className="text-decoration-none mx-3 py-2 navbutton" >Home</NavLink>
+                            <NavLink  to="/login"  className="text-decoration-none mx-3 py-2 navbutton">  Login</NavLink>
+                            <NavLink  to="/profile"  className="text-decoration-none mx-3 py-2 navbutton">  Profile</NavLink>
+                            <NavLink  to="/post-recipe"  className="text-decoration-none mx-3 py-2 navbutton">  Add Recipe</NavLink>
+                            <NavLink  to="/recipe"  className="text-decoration-none mx-3 py-2 navbutton">  Recipe</NavLink>
+                            <NavLink  to="/category"  className="text-decoration-none mx-3 py-2 navbutton">  Category</NavLink>
                         </Nav>
                     </Offcanvas.Body>
                 </Offcanvas>

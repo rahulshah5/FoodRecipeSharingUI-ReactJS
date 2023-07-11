@@ -26,12 +26,6 @@ function AddRecipe(props){
 
         e.preventDefault();
 
-        // Process form data
-        // ...
-    
-        // Reset form fields
-        
-
     };
 
 
@@ -50,15 +44,7 @@ function AddRecipe(props){
                         </Form.Group>
 
                         <Form.Group controlId="mySelect" className='mb-4'>
-                            <Form.Label>Select Categories</Form.Label>
-                            {/* <Form.Control as="select" multiple value={selectedCategories} onChange={handleSelectChange}>
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                            <option value="option3">Option 3</option>
-                            <option value="option4">Option 4</option>
-                            </Form.Control> */}
-
-                            
+                            <Form.Label>Select Categories</Form.Label>                          
                         </Form.Group>
 
                         <Row>
