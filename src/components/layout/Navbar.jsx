@@ -1,47 +1,52 @@
-import React, { useState } from 'react';
-import { Button, Nav, Form, Col, Collapse,Offcanvas,Navbar,Container } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Button, Nav, Form, Col,Offcanvas,Navbar } from 'react-bootstrap';
+import { NavLink, useNavigate,useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass,faBars } from '@fortawesome/free-solid-svg-icons';
 import '../../assets/css/navbar.css';
-
-
-//   return (
-//     <>
-//       <Navbar bg="light" expand="lg">
-//         <Container>
-//           <Navbar.Brand href="#">Logo</Navbar.Brand>
-//           <Navbar.Toggle aria-controls="navbar-nav" />
-//           <Navbar.Collapse id="navbar-nav">
-//             <Nav variant="pills" className="d-flex justify-content-around navbarResponsive" id="navbarNav">
-                //     <NavLink  to="/#" className="text-decoration-none px-3 py-2 navbutton" >Home</NavLink>
-                //     <NavLink  to="/login"  className="text-decoration-none px-3 py-2 navbutton">  Login</NavLink>
-                //     <NavLink  to="/profile"  className="text-decoration-none px-3 py-2 navbutton">  Profile</NavLink>
-                //     <NavLink  to="/post-recipe"  className="text-decoration-none px-3 py-2 navbutton">  Add Recipe</NavLink>
-                //     <NavLink  to="/recipe"  className="text-decoration-none px-3 py-2 navbutton">  Recipe</NavLink>
-                //     <NavLink  to="/category"  className="text-decoration-none px-3 py-2 navbutton">  Category</NavLink>
-                // </Nav>
-//             <Button variant="outline-primary" onClick={toggleOffcanvas}>
-//               Menu
-//             </Button>
-//           </Navbar.Collapse>
-//         </Container>
-//       </Navbar>
-
-
-//     </>
-//   );
-// }
-
-// export default App;
+import AuthService from '../apiData/AuthService';
+import axios from '../apiData/axios';
 
 
 function NavbarLayout(props) {
-    const [showOffcanvas, setShowOffcanvas] = useState(false);
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
+  
+  const [searchQuery, setSearchQuery] = useState('');
+  
+    const navigate = useNavigate();
 
+    const handleSearch = async () => {
+        
+        
+        try {
+          const response = await axios.get('search/', {
+              query:searchQuery
+          });
+        navigate('/search', { state:{res:response.data},
+          });
+        } catch (error) {
+            // Handle error
+            console.error('Error searching:', error);
+        }
+    };
+
+    const [isLoggedIn,setLoggedIn]=useState(false)
     const toggleOffcanvas = () => {
       setShowOffcanvas(!showOffcanvas);
-    };
+  };
+    
+
+    useEffect(() => {
+        if (localStorage.getItem('user'))
+            setLoggedIn(true);
+    }, []);
+
+    const logoutUser = async () => {
+        await AuthService.logout();
+    }
+       
+
+    
   return (
     <div className="mt-4">
       {/* links */}
@@ -52,11 +57,14 @@ function NavbarLayout(props) {
             <Col className='d-flex align-items-center justify-content-end'>
                 <Nav variant="pills" className="  navbarResponsive " id="navbarNav">
                     <NavLink  to="/#" className="text-decoration-none mx-3 py-2 navbutton" >Home</NavLink>
-                    <NavLink  to="/category"  className="text-decoration-none mx-3 py-2 navbutton">  Category</NavLink>
-                    <NavLink  to="/post-recipe"  className="text-decoration-none mx-3 py-2 navbutton">  Add Recipe</NavLink>
-                    <NavLink  to="/recipe"  className="text-decoration-none mx-3 py-2 navbutton">  Recipe</NavLink>
-                    <NavLink  to="/profile"  className="text-decoration-none mx-3 py-2 navbutton">  Profile</NavLink>
-                    <NavLink  to="/login"  className="text-decoration-none mx-3 py-2 navbutton">  Login</NavLink>
+                      <NavLink to="/all-recipes" className="text-decoration-none mx-3 py-2 navbutton">  All Recipes</NavLink>
+                      {/* <NavLink to="/recipe" className="text-decoration-none mx-3 py-2 navbutton">  Recipe</NavLink> */}
+                      {isLoggedIn ?<>
+                        <NavLink  to="/post-recipe"  className="text-decoration-none mx-3 py-2 navbutton">  Add Recipe</NavLink>
+                          <NavLink to="/profile" className="text-decoration-none mx-3 py-2 navbutton">  Profile</NavLink>
+                          <NavLink onClick={logoutUser} to="/#" className="text-decoration-none mx-3 py-2 navbutton">Logout</NavLink></>:
+                          <NavLink to="/login" className="text-decoration-none mx-3 py-2 navbutton">  Login</NavLink>
+                      }
                 </Nav>
 
 {/* off canvas menu for small devices */}
@@ -67,12 +75,18 @@ function NavbarLayout(props) {
                     </Offcanvas.Header>
                     <Offcanvas.Body>
                         <Nav className="flex-column">
-                            <NavLink  to="/#" className="text-decoration-none mx-3 py-2 navbutton" >Home</NavLink>
-                            <NavLink  to="/login"  className="text-decoration-none mx-3 py-2 navbutton">  Login</NavLink>
-                            <NavLink  to="/profile"  className="text-decoration-none mx-3 py-2 navbutton">  Profile</NavLink>
-                            <NavLink  to="/post-recipe"  className="text-decoration-none mx-3 py-2 navbutton">  Add Recipe</NavLink>
+                              <NavLink to="/#" className="text-decoration-none mx-3 py-2 navbutton" >Home</NavLink>
+                              
                             <NavLink  to="/recipe"  className="text-decoration-none mx-3 py-2 navbutton">  Recipe</NavLink>
-                            <NavLink  to="/category"  className="text-decoration-none mx-3 py-2 navbutton">  Category</NavLink>
+                              <NavLink to="/category" className="text-decoration-none mx-3 py-2 navbutton" >  All Recipes</NavLink>
+                              {isLoggedIn ? <>
+                                <NavLink to="/profile" className="text-decoration-none mx-3 py-2 navbutton">  Profile</NavLink>
+                                <NavLink to="/post-recipe" className="text-decoration-none mx-3 py-2 navbutton">  Add Recipe</NavLink> 
+                                <NavLink to="/#" onClick={logoutUser} className="text-decoration-none mx-3 py-2 navbutton">Logout</NavLink></>:
+                                <NavLink to="/login" className="text-decoration-none mx-3 py-2 navbutton">  Login</NavLink>
+                              }
+                              
+                              
                         </Nav>
                     </Offcanvas.Body>
                 </Offcanvas>
@@ -81,8 +95,16 @@ function NavbarLayout(props) {
                        
     {/* search bar */}
         <Col lg={12} >
-            <Form className="d-flex justify-content-end px-5 float-end searchBar">
-                <Form.Control size="sm" type="search" aria-label="search" className="me-2 px-4 rounded-pill" placeholder="Search Recipe"/>
+            <Form onSubmit={handleSearch} className="d-flex justify-content-end px-5 float-end searchBar">
+                <Form.Control
+                    size="sm"
+                    type="search"
+                    aria-label="search"
+                    className="me-2 px-4 rounded-pill"
+                    placeholder="Search Recipe"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
                 <Button type="submit" size="sm">
                     <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </Button>

@@ -8,7 +8,9 @@
     background-color: #fff;
 }
 .reviewSection{
-    border: 1px solid #fff;
+    padding: 1rem;
+    border: 1px solid #6b6b6b ;
+    border-radius: 0.5rem;
 
 }
 .topSection{
@@ -23,6 +25,16 @@
 .basicInfo{
     padding: 1rem;
 }
+.flex_wrap{
+    flex-wrap: wrap;
+}
+
+
+.table-custom th,
+.table-custom td {
+  padding: 0.8rem; 
+}
+
 @media only screen and (max-width:420px) {
     .topSection{
         flex-direction: column;

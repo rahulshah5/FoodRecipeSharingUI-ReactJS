@@ -3,20 +3,26 @@ import recipeImage from '../../../assets/images/chef.jpg'
 import '../../../assets/css/recipePreview.css'
 import {Row,Col,Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart,faStar } from '@fortawesome/free-solid-svg-icons';
-function RecipePreview(prop){
+import { faHeart, faStar } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate,useHistory  } from 'react-router-dom';
+function RecipePreview(prop) {
+   const navigate = useNavigate();
+
+    const navigateToRecipe = () => {
+        navigate(`/recipes/${prop.recipe.id}`);
+    };
     return(
         <Col xs={6} lg={3}  className="recipeOutline">
-            <Button variant="none" className='favButton'><FontAwesomeIcon icon={faHeart}  /></Button>
-            <img src={recipeImage} className='recipeImage' alt="recipeImage" height="75%" width="100%"/>
+            
+            <img src={prop.recipe.image_url} className='recipeImage' alt="recipeImage" height="180rem" width="100%"  onClick={navigateToRecipe}/>
             <Row className=' recipeDetailsBox'>
                 <Col  xs={8} sm={7}  className='' >
-                    <p className='recipeTexts authorName'>Raju Bhagat</p>
-                    <p className='recipeTexts recipeName'>Ginger Tea</p>
+                    <p className='recipeTexts recipeName'>{ prop.recipe.title}</p>
+                    <p className='recipeTexts authorName'>by { prop.recipe.author_name}</p>
                 </Col>
                 <Col xs={4} sm={5} className=''>
-                    <p className='recipeTexts recipeRating'> <FontAwesomeIcon icon={faStar} id='starIcon' />4.5  </p>
-                    <p className='recipeTexts recipeIngredients'>5 Ingredients</p>
+                    <p className='recipeTexts recipeRating'> { prop.recipe.cooking_time} Minutes </p>
+                    <p className='recipeTexts recipeIngredients'>{ prop.recipe.ingredient_names.length} Ingredients</p>
                 </Col>
             </Row>
         </Col>

@@ -4,7 +4,7 @@ import {Nav,Col,Navbar} from 'react-bootstrap'
 import '../../assets/css/footer.css'
 export default function Footer(props){
     return(
-        <div className='d-flex mt-5 p-5 footerOutline'>
+        <div className='d-flex mt-5  footerOutline'>
             <Col lg={3} xs={12} sm={6} md={4}>
                 <h1>Cookiee</h1>
                 <p>Lorem ipsum dolor sit temporibus error fugiat fuga minima tempore id!</p>

@@ -16,24 +16,18 @@
 .recipeDetailsBox{
     padding: 0.6rem 1rem;
 }
+
+.recipeImage:hover{
+    cursor: pointer;
+    transform: scale(1.015);
+    z-index: -50;
+}
 .recipeTexts{
     font-size: small;
     padding: 0;
     margin: 0;
 }
-.favButton{
-    position:absolute;
-    right: 0.7rem;
-    top: 1rem;
-    padding: 0.2rem;
-    margin: 0.2rem;
-    color: #fff;
-}
-.favButton:hover{
-    color:red;
-    background-color: #fff;
-    
-}
+
 
 .iconForMobile{
     visibility: hidden;

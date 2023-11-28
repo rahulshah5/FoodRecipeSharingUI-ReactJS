@@ -8,6 +8,9 @@
 .navbutton:hover{
     border-bottom: 1px solid black;
 }
+.flex_wrap{
+    flex-wrap: wrap;
+}
 
 @media only screen and (max-width: 420px) {
    
@@ -26,6 +29,12 @@
         height: 0;
         width: 0;
         visibility: hidden;
+    }
+    .column_order1{
+        order: 1;
+    }
+    .column_order2{
+        order: 2;
     }
 }
 
