@@ -24,7 +24,7 @@ const RecipeList = ({ data }) => {
             <td>{index + 1}</td>
             <td>{item.recipe_title?item.recipe_title:item.title}</td>
             <td>{item.author_name}</td>
-            <td>{item.recipe_ingredients?item.recipe_ingredients:item.ingredients}</td>
+            <td>{item.recipe_ingredients?item.recipe_ingredients:item.ingredients.length}</td>
             <td>{item.recipe_cooking_time?item.recipe_cooking_time:item.cooking_time} min</td>
             {/* Render other data fields accordingly */}
           </tr>

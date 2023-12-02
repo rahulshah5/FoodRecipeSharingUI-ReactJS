@@ -6,8 +6,8 @@ export default function Footer(props){
     return(
         <div className='d-flex mt-5  footerOutline'>
             <Col lg={3} xs={12} sm={6} md={4}>
-                <h1>Cookiee</h1>
-                <p>Lorem ipsum dolor sit temporibus error fugiat fuga minima tempore id!</p>
+                <h1>Food Recipe Sharing Site</h1>
+                <p>Join our food recipe sharing app to savor global flavors and share your culinary creations with the world!</p>
             </Col>
             <Col lg={3} xs={12} sm={6} md={4} className=''>
                 <p className='px-5'>Links</p>

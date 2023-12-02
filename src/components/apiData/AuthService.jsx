@@ -31,7 +31,7 @@ class AuthService {
     if (response.data) {
       console.log("user logged in "+ resData.token.access)
       localStorage.setItem("user", JSON.stringify(response.data.token.access));
-      
+      localStorage.setItem("refresh-token",JSON.stringify(response.data.token.refresh))
     }
     return response.data;
   }
@@ -59,10 +59,26 @@ class AuthService {
   }
 
   // Logout the current user
-  logout() {
-    localStorage.removeItem("user");
-    // Reloads the current page
-    window.location.reload();
+  async logout() {
+    try {
+      const res = await axios.post('logout/', {
+        header: {
+          Authorization: `Bearer ${localStorage.getItem('refresh-token').replace(/"/g, "")}`,
+        }
+      });
+      localStorage.removeItem("user");
+      localStorage.removeItem('refresh-token');
+      localStorage.removeItem('favorites')
+      console.log(res.data)
+      window.location.reload();
+
+    } catch (error) {
+      localStorage.removeItem('user');
+      localStorage.removeItem('refresh-token');
+      localStorage.removeItem('favorites')
+
+      console.log(error)
+    }
 
   }
 

@@ -4,7 +4,7 @@ import { Button, Col,Form, Table, Row,FloatingLabel,Card } from "react-bootstrap
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  faStar } from "@fortawesome/free-solid-svg-icons";
 import '../../assets/css/recipeView.css'
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ToastMessage from "./fragments/toast_message";
 import axios from '../apiData/axios';
 import GetRecipeSteps from "../apiData/GetRecipeSteps";
@@ -13,6 +13,7 @@ import GetRating from "../apiData/GetRatings";
 import UserData from "../apiData/UserData";
 import { userToken } from "../apiData/UserData";
 import PostReviewAndRating from "../apiData/PostReviewAndRating";
+import AuthService from "../apiData/AuthService";
 function RecipeView(props) {
 
   const { id } = useParams();
@@ -38,6 +39,9 @@ function RecipeView(props) {
 
   const { userData, userDataError } = UserData()
   const { recipeSteps, recipeStepsApiError } = GetRecipeSteps(id)
+
+  const navigate=useNavigate()
+
   if (userDataError) {
     setToastMessage(userDataError.msg);
     setShowToast(true)
@@ -139,11 +143,18 @@ function RecipeView(props) {
           Authorization: `Bearer ${localStorage.getItem('user').replace(/"/g, '')}`,
         },
       });
-      setToastMessage(`Successfully added to favorites. Status: ${res.status}`);
+      console.log(res)
+      setToastMessage(res.data.msg);
       setShowToast(true);
     } catch (error) {
-      setToastMessage(`Error adding to favorites: ${error.message}`);
+      if (!AuthService.getCurrentUser()) {
+        navigate('/login')
+        return
+      }
+      console.log(error)
+      setToastMessage(error.response.data.msg);
       setShowToast(true);
+
     }
   };
   
@@ -206,7 +217,7 @@ function RecipeView(props) {
             <span className="small ">{recipes.author_name}</span>
             <span className="mx-5 small">
               <FontAwesomeIcon icon={faStar} id="starIcon" />
-              4.5{" "}
+              {recipes.average_rating}{" "}
             </span>
           </p>
           <p className="textJustify">

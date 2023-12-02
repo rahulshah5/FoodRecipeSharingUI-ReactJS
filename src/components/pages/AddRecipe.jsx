@@ -13,7 +13,9 @@ function AddRecipe(props){
     const [category, setselectedCategories] = useState('');
     const [tags, setRecipeTags] = useState('');
     const [description, setDescription] = useState("");
-  const [ingredients, setIngredients] = useState("");
+    const [ingredients, setIngredients] = useState("");
+  const [servings, setServings] = useState("");
+
   
     const navigate=useNavigate()
   
@@ -41,6 +43,7 @@ function AddRecipe(props){
       cooking_time,
       difficulty_level,
       tags,
+      servings,
       image
     }, {
       headers: {
@@ -99,6 +102,12 @@ function AddRecipe(props){
                 <Form.Group className="mb-4" controlId="CookingTime">
                   <Form.Label>Cooking Time</Form.Label>
                   <Form.Control type="number" placeholder="Enter time in minutes. ex( 30, 60, 120)" onChange={(e) => setCookingTime(e.target.value)} />
+                </Form.Group>
+              </Col>
+              <Col sm={12}>
+                <Form.Group className="mb-4" controlId="servings">
+                  <Form.Label>Servings</Form.Label>
+                  <Form.Control type="number" placeholder="Number of Servings" onChange={(e) => setServings(e.target.value)} />
                 </Form.Group>
               </Col>
 

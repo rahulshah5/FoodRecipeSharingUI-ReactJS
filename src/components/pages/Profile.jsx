@@ -25,7 +25,7 @@ function ProfileUser(props) {
 
     const logoutUser = () => {
         AuthService.logout();
-        navigateTo('/home/');
+        navigateTo('home/')
     }
     const user_d = userData.user
     const user_recipes = userData.recipes

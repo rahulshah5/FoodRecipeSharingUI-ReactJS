@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Nav, Form, Col,Offcanvas,Navbar } from 'react-bootstrap';
+import { Button, Nav, Form, Col,Offcanvas,Navbar,Row } from 'react-bootstrap';
 import { NavLink, useNavigate,useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass,faBars } from '@fortawesome/free-solid-svg-icons';
@@ -12,6 +12,7 @@ function NavbarLayout(props) {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   
   const [searchQuery, setSearchQuery] = useState('');
+  
   
     const navigate = useNavigate();
 
@@ -36,23 +37,54 @@ function NavbarLayout(props) {
   };
     
 
-    useEffect(() => {
-        if (localStorage.getItem('user'))
-            setLoggedIn(true);
-    }, []);
+
 
     const logoutUser = async () => {
-        await AuthService.logout();
+      await AuthService.logout();
+      window.location.reload()
     }
-       
+  const [selectedCountry, setSelectedCountry] = useState('');
+  const handleCountryChange = (e) => {
+    const selectedValue = e.target.value;
+    setSelectedCountry(selectedValue);
+    localStorage.setItem('country', JSON.stringify(selectedValue));
+    window.location.reload()
+  };
 
-    
+  useEffect(() => {
+    const storedCountry = localStorage.getItem('country');
+    if (storedCountry) {
+      setSelectedCountry(JSON.parse(storedCountry));
+    }
+    if (localStorage.getItem('user')) setLoggedIn(true);
+  }, []);  
+
   return (
-    <div className="mt-4">
+    <div className="mt-4  ">
+      <Row className="mb-2">
+      <Col className="d-flex justify-content-end">
+        <Form.Group className="country-width">
+          <Form.Select
+            size="sm"
+            aria-label="country"
+            value={selectedCountry}
+            onChange={handleCountryChange}
+          >
+            <option value="nepal">Nepal</option>
+            <option value="india">India</option>
+            <option value="usa">USA</option>
+            <option value="canada">Canada</option>
+            <option value="australia">Australia</option>
+            <option value="other">Other</option>
+          </Form.Select>
+        </Form.Group>
+      </Col>
+    </Row>
       {/* links */}
-        <Navbar expand="lg">
+      
+        <Row className='mb-3'>
             <Col lg={4} md={4} sm={6} xs={6}>
-                <h2>Cookiee</h2>
+                <h2>Food Recipe Sharing Site</h2>
             </Col>
             <Col className='d-flex align-items-center justify-content-end'>
                 <Nav variant="pills" className="  navbarResponsive " id="navbarNav">
@@ -91,11 +123,13 @@ function NavbarLayout(props) {
                     </Offcanvas.Body>
                 </Offcanvas>
             </Col>
-        </Navbar>
-                       
-    {/* search bar */}
+        </Row>
+                    
+      {/* search bar */}
+      {/* <Row>
         <Col lg={12} >
-            <Form onSubmit={handleSearch} className="d-flex justify-content-end px-5 float-end searchBar">
+            
+            <Form onSubmit={handleSearch} className="d-flex px-5 float-end searchBar">
                 <Form.Control
                     size="sm"
                     type="search"
@@ -110,7 +144,7 @@ function NavbarLayout(props) {
                 </Button>
             </Form>
         </Col>
-      
+      </Row> */}
     </div>
   );
 }

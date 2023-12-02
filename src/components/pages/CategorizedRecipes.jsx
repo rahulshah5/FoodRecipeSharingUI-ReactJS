@@ -36,7 +36,7 @@ function CategorizedRecipes() {
     return (
         <>
             <MasterLayout>
-                <h4 className='d-inline'>Category : {categoryInfo.name }</h4>
+                <h4 className='d-inline mt-5 text-muted d-inline'>Category  {categoryInfo.name }</h4>
                 <div>
                     {recipes.length === 0 ? (
                         <p>No recipes found</p>

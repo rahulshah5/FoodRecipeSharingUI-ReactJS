@@ -2,20 +2,19 @@ import axios from '../../apiData/axios'
 import React, { useState } from 'react'
 import {Form, Button} from 'react-bootstrap'
 function UerProfileEditForm(props) {
-    const [oldpassword,setOldPassword]=useState('')
-    const [password,setPassword]=useState('')
+    const [old_password,setOldPassword]=useState('')
+    const [new_password,setPassword]=useState('')
     const [confirm_password,setConfirmPassword]=useState('')
 
 
     const handleSubmit = async () => {
-        if (password === confirm_password) {
+        if (new_password === confirm_password) {
             
         
             try {
-                const res = await axios.post('change-password/', {
-                    oldpassword,
-                    password,
-                    confirm_password
+                const res = await axios.patch('change-password/', {
+                    oldpassword: old_password,
+                    password: new_password
                 },
                 {
                     headers: {

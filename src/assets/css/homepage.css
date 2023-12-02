@@ -55,8 +55,9 @@ p{
 
 .carousel-caption {
     position: absolute;
-    top: 50%;
-    left: 20%;
+    top: 70%;
+    left: 30%;
+    width: 50%;
     transform: translate(-50%, -50%);
     color: white;
     

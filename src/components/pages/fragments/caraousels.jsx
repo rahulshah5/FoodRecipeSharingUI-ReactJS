@@ -7,41 +7,29 @@ function ControlledCarousel(props) {
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
+  console.log(props.recipe)
+
+
 
   return (
-        <Carousel activeIndex={index} onSelect={handleSelect}>
-        <Carousel.Item>
-            <div className="carousel-image-container">
+    <Carousel activeIndex={index} onSelect={handleSelect}>
+      {props.recipe?.map((item, idx) => (
+        <Carousel.Item key={idx}>
+          <div className="carousel-image-container">
             <div className="fade-overlay"></div>
             <img
-                className="d-block w-100"
-                src={props.img}
-                alt="First slide"
+              className="d-block w-100"
+              src={item.image_url}
+              alt={`Slide ${idx}`}
             />
-            <div className="carousel-caption">
-                <h3>Your Text Here</h3>
-                <p>Additional description</p>
+            <div className="carousel-caption ">
+              <h3>{item.title}</h3>
+              <p className='wrapped-text'>{item.description}</p>
             </div>
-            </div>
-
+          </div>
         </Carousel.Item>
-        <Carousel.Item>
-            <div className="carousel-image-container">
-            <div className="fade-overlay"></div>
-            <img
-                className="d-block w-100"
-                src={props.img}
-                alt="First slide"
-            />
-            <div className="carousel-caption">
-                <h3>Your Text Here</h3>
-                <p>Additional description</p>
-            </div>
-            </div>
-
-        </Carousel.Item>
-        </Carousel>
-
+      ))}
+    </Carousel>
   );
 }
 

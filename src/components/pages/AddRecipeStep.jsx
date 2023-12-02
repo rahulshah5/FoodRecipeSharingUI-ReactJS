@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import axios from '../apiData/axios';
 import MasterLayout from '../layout/MasterLayout';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const AddRecipeStep = () => {
   const [steps, setSteps] = useState([]);
-  const {id}=useParams()
+  const { id } = useParams()
+  const navigate=useNavigate()
   useEffect(() => {
     console.log('Steps updated:', steps);
     // Make your API call here
@@ -42,6 +43,7 @@ const AddRecipeStep = () => {
         }
       });
       console.log('Response:', response.data);
+      navigate('/profile')
       // Handle success or additional operations after saving
     } catch (error) {
       console.error('Error:', error);
