@@ -6,6 +6,7 @@ import { faMagnifyingGlass,faBars } from '@fortawesome/free-solid-svg-icons';
 import '../../assets/css/navbar.css';
 import AuthService from '../apiData/AuthService';
 import axios from '../apiData/axios';
+import UserData from '../apiData/UserData';
 
 
 function NavbarLayout(props) {
@@ -37,8 +38,6 @@ function NavbarLayout(props) {
   };
     
 
-
-
     const logoutUser = async () => {
       await AuthService.logout();
       window.location.reload()
@@ -51,13 +50,24 @@ function NavbarLayout(props) {
     window.location.reload()
   };
 
+
+  const setDefaultCountry = () => {
+    const defaultCountry = 'nepal'; 
+    localStorage.setItem('country', JSON.stringify(defaultCountry));
+    setSelectedCountry(defaultCountry);
+  };
   useEffect(() => {
     const storedCountry = localStorage.getItem('country');
-    if (storedCountry) {
-      setSelectedCountry(JSON.parse(storedCountry));
+    if (!storedCountry) {
+      setDefaultCountry(); 
+    } else {
+      setSelectedCountry(JSON.parse(storedCountry)); 
     }
-    if (localStorage.getItem('user')) setLoggedIn(true);
-  }, []);  
+
+    if (localStorage.getItem('user')) {
+      setLoggedIn(true);
+    }
+  }, []);
 
   return (
     <div className="mt-4  ">
@@ -75,7 +85,7 @@ function NavbarLayout(props) {
             <option value="usa">USA</option>
             <option value="canada">Canada</option>
             <option value="australia">Australia</option>
-            <option value="other">Other</option>
+            <option value="all" defaultChecked>All</option>
           </Form.Select>
         </Form.Group>
       </Col>

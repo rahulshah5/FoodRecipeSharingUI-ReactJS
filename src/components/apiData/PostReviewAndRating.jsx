@@ -1,15 +1,15 @@
-// RecipeView component
+// postReviewAndRating.js
 
 import axios from './axios';
-import { useState } from 'react';
 
-const postReviewAndRating = async (id, rating, review) => {
+const postReviewAndRating = async (id, rating, review, country) => {
     try {
         const ratingRes = await axios.post(
             'rating/',
             {
                 recipe: id,
                 rating,
+                country
             },
             {
                 headers: {
@@ -33,7 +33,7 @@ const postReviewAndRating = async (id, rating, review) => {
 
         return { reviewRes: reviewRes.data, ratingRes: ratingRes.data, error: null };
     } catch (error) {
-        return { reviewRes: null, ratingRes: null, error: error.message };
+        return { reviewRes: null, ratingRes: null, error: error};
     }
 };
 

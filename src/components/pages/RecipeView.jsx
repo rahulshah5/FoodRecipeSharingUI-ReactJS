@@ -14,12 +14,16 @@ import UserData from "../apiData/UserData";
 import { userToken } from "../apiData/UserData";
 import PostReviewAndRating from "../apiData/PostReviewAndRating";
 import AuthService from "../apiData/AuthService";
+
+import RecipePreviewCols from "./fragments/RecipePreviewRows";
+import GetSimilarRecipes from "../apiData/GetSimilarRecipes";
 function RecipeView(props) {
 
   const { id } = useParams();
-  
+
   const [recipes, setRecipes] = useState([]);
   const [apiError, setApiError] = useState("");
+  
 
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
@@ -33,12 +37,13 @@ function RecipeView(props) {
 
   const { review, reveiwApiError } = GetReviews(id)
   const { rating, ratingApiError } = GetRating(id)
-
+ 
   const [userRating, setUserRating] = useState("");
   const [userReview, setUserReview] = useState("");
 
   const { userData, userDataError } = UserData()
   const { recipeSteps, recipeStepsApiError } = GetRecipeSteps(id)
+
 
   const navigate=useNavigate()
 
@@ -76,24 +81,33 @@ function RecipeView(props) {
     }
   };
   
+
   
 
   // fetching recipe using id
-  const fetchRecipes = async () => {
+const fetchRecipes = async () => {
     try {
       const res = await axios.get(`recipe/${id}`);
       setRecipes(res.data);
-      
-      
+
     } catch (error) {
       setApiError(error.message);
     }
   };
 
+  const recipePreviewItemsRows = [];
+  
+
+  const {similar_recipes, error}=GetSimilarRecipes(id)
+  similar_recipes?.map((rec) => 
+    recipePreviewItemsRows.push(<RecipePreviewCols items={rec} />))
+
+
   useEffect(() => {
     fetchRecipes();
   }, []);
-  
+
+
   // fetching steps of recipe
   
   if (recipeStepsApiError) {
@@ -111,31 +125,35 @@ function RecipeView(props) {
     setToastMessage(ratingApiError.msg);
     setShowToast(true);
   }
-  review?.sort((a, b) => a.id - b.id);
-  rating?.sort((a, b) => a.id - b.id);
+  // review?.sort((a, b) => a.id - b.id);
+  // rating?.sort((a, b) => a.id - b.id);
  
 
-  
+
+
+  // posting rating and review
   const handleReviewSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        const { review, rating, error } = await PostReviewAndRating(id, userRating, userReview);
+    e.preventDefault();
+    try {
+        const country = userData.user.country
+      
+        const { review, rating, error } = await PostReviewAndRating(id, userRating, userReview,country);
         if (!error) {
           setShowToast(true);
           setToastMessage("Successfully posted");
           window.location.reload()
         } else {
           setShowToast(true);
-          setToastMessage(`Error posting review: ${error.message}`);
+          setToastMessage(`Error posting review`);
         }
       } catch (error) {
         setShowToast(true);
-        setToastMessage(`Error posting review: ${error.message}`);
+        setToastMessage(`Error posting review`);
       }
     };
 
 
-
+// favourites
   const handleFavourite = async (id) => {
     try {
       const res = await axios.post('favourite/', { recipe: id }, {
@@ -158,9 +176,7 @@ function RecipeView(props) {
     }
   };
   
-  
-
-
+// timer for startcooking
   useEffect(() => {
     let timer;
     if (timerRunning && timeRemaining > 0) {
@@ -201,6 +217,11 @@ function RecipeView(props) {
     }
   };
 
+ 
+
+
+
+
   return (
     <MasterLayout>
       {/* Toast component */}
@@ -217,7 +238,7 @@ function RecipeView(props) {
             <span className="small ">{recipes.author_name}</span>
             <span className="mx-5 small">
               <FontAwesomeIcon icon={faStar} id="starIcon" />
-              {recipes.average_rating}{" "}
+              {rating?.average_rating}{" "}
             </span>
           </p>
           <p className="textJustify">
@@ -300,12 +321,12 @@ function RecipeView(props) {
         
         <div className=" mt-4 sectionBackground">
           <h5>Reviews</h5>
-          {review.map((item, index) => {
+          {review?.map((item, index) => {
             return (
               <div className=" mt-4 d-flex flex-column reviewSection">
                 <span className="fs-6">{item.author_name}</span>
                 <span className="fs-6 font-small">
-                  {rating[index]?.rating}
+                  {rating && rating.ratings && rating.ratings[index]?.rating}
                   <FontAwesomeIcon icon={faStar} id="starIcon" />{" "}
                   <span className="fs-6 px-5">{item.created_at_date} </span>
                 </span>
@@ -321,7 +342,9 @@ function RecipeView(props) {
         </div>
       </Col>
       <Col lg="6" sm="12" xs="12" className="px-5 mt-3">
-        
+       <h4> Similar Recipes</h4>
+       {recipePreviewItemsRows}
+       
       </Col>
     </MasterLayout>
   );

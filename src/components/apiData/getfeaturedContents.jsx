@@ -4,8 +4,8 @@ import API from "./axios";
 function GetFeaturedContents() {
   const [featuredResponse, setFeaturedResponse] = useState([]);
   const [featuredApiError, setFeaturedApiError] = useState([]);
-  const country = localStorage.getItem('country');
-
+  var country = localStorage.getItem('country');
+  country=country.replace(/['"]+/g, '')
   useEffect(() => {
     const fetchData = async () => {
       try {

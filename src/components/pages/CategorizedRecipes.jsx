@@ -1,12 +1,12 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import useCategorizedRecipes from '../apiData/getCategorizedRecipes';
+import UseCategorizedRecipes from '../apiData/getCategorizedRecipes';
 import RecipePreview from './fragments/RecipePreview';
 import MasterLayout from '../layout/MasterLayout';
 import axios from '../apiData/axios'
 function CategorizedRecipes() {
     const { id } = useParams();
-    const { recipes,categoryInfo, error } = useCategorizedRecipes(id);
+    const { categorized_recipes,categoryInfo, error } = UseCategorizedRecipes(id);
     
 
 
@@ -15,7 +15,7 @@ function CategorizedRecipes() {
         return <div>Error: {error}</div>;
     }
 
-    const recipePreviewItems = recipes.map((recipe) => (
+    const recipePreviewItems = categorized_recipes.map((recipe) => (
         <RecipePreview key={recipe.id} recipe={recipe} />
     ));
 
@@ -38,7 +38,7 @@ function CategorizedRecipes() {
             <MasterLayout>
                 <h4 className='d-inline mt-5 text-muted d-inline'>Category  {categoryInfo.name }</h4>
                 <div>
-                    {recipes.length === 0 ? (
+                    {categorized_recipes.length === 0 ? (
                         <p>No recipes found</p>
                     ) : (
                         <div>

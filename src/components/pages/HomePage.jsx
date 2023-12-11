@@ -9,13 +9,17 @@ import useRecipes from '../apiData/useRecipes';
 import { useNavigate } from 'react-router-dom';
 import getFeaturedContents from '../apiData/getfeaturedContents';
 import ToastMessage from './fragments/toast_message';
+import Get_Recommendations from '../apiData/get_recommendations';
 function HomePage(props) {
     const { recipes, error } = useRecipes();
-    const {featuredResponse, featuredapierror}=getFeaturedContents()
+    const { featuredResponse, featuredapierror } = getFeaturedContents()
+
+
     const recipePreviewItems = [];
-    console.log(featuredapierror)
+
     const [toastMessage, setToastMessage] = useState('')
-    const [showToast,setShowToast]=useState(false)
+    const [showToast, setShowToast] = useState(false)
+
     if (featuredapierror) {
         setToastMessage(featuredapierror)
         setShowToast(true)
@@ -38,6 +42,40 @@ function HomePage(props) {
             </div>
         );
     }
+
+    const recommendation_recipes = () => {
+    const user = localStorage.getItem("user");
+
+    if (user != null) {
+        // User exists in localStorage
+        const { recommendations, recommendation_error } = Get_Recommendations();
+        if (recommendation_error) {
+            setToastMessage(recommendation_error);
+            setShowToast(true);
+        }
+
+        return (
+            <>
+                <Col className='gapsAndBackground'>
+                    <div className=' d-flex justify-content-between mb-2'>
+                        <span>Recommendation</span>
+                    </div>
+                </Col>
+                <div className='d-flex scroll justify-content-between'>
+                    {recommendations?.map((res, index) => (
+                        <RecipePreview recipe={res} key={index} />
+                    ))}
+                </div>
+            </>
+        );
+    } else {
+        // User doesn't exist in localStorage
+        return (
+            <></>
+        );
+    }
+};
+
 
     return(
         <MasterLayout>
@@ -66,18 +104,8 @@ function HomePage(props) {
                 </Col>
                 
             {/* Recommendations */}
-                <Col className='gapsAndBackground'>
-                    <div className=' d-flex justify-content-between mb-2'>
-                        <span>Recommendation</span>
-                       {/* <Button onClick={()=>navigate('/recommended')} >See All</Button> */}
-                    </div>
-                </Col>
-                <div className='d-flex scroll justify-content-between'>
-                    {/* {recipe?.map((res, index) => (
-                        <RecipePreview title={res.title} description={res.description} author={res.author_name} ingredient={res.ingredient_name} />
-                    ))} */}
-                </div>
-
+                
+                {recommendation_recipes()}
 
             {/* new recipes */}
                 <Col  className='gapsAndBackground'>
