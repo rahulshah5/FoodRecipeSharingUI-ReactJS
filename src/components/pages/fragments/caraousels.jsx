@@ -15,7 +15,7 @@ function ControlledCarousel(props) {
 
   return (
     <Carousel activeIndex={index} onSelect={handleSelect} >
-      {props.recipe?.map((item, idx) => (
+      {props?.recipe?.map((item, idx) => (
         <Carousel.Item key={idx}>
           <div className="carousel-image-container" >
             <div className="fade-overlay"></div>
