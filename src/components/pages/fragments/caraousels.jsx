@@ -8,7 +8,6 @@ function ControlledCarousel(props) {
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
-  console.log(props.recipe)
 
   const navigate=useNavigate()
 

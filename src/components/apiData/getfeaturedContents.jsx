@@ -5,7 +5,7 @@ function GetFeaturedContents() {
   const [featuredResponse, setFeaturedResponse] = useState([]);
   const [featuredApiError, setFeaturedApiError] = useState([]);
   var country = localStorage.getItem('country');
-  country=country.replace(/['"]+/g, '')
+  country=country?.replace(/['"]+/g, '')
   useEffect(() => {
     const fetchData = async () => {
       try {

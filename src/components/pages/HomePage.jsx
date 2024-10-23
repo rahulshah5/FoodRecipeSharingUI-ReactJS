@@ -31,10 +31,10 @@ function HomePage(props) {
 
     const rows = [];
     for (let i = 0; i < recipePreviewItems.length; i += 4) {
-        const rowItems = recipePreviewItems.slice(i, i + 4);
+        const rowItems = recipePreviewItems?.slice(i, i + 4);
         rows.push(
             <div className="row" key={i}>
-                {rowItems.map((item, index) => (
+                {rowItems?.map((item, index) => (
                     <div className="col-md-3" key={index}>
                         {item}
                     </div>
@@ -44,37 +44,37 @@ function HomePage(props) {
     }
 
     const recommendation_recipes = () => {
-    const user = localStorage.getItem("user");
+        const user = localStorage?.getItem("user");
 
-    if (user != null) {
-        // User exists in localStorage
-        const { recommendations, recommendation_error } = Get_Recommendations();
-        if (recommendation_error) {
-            setToastMessage(recommendation_error);
-            setShowToast(true);
-        }
+        if (user != null) {
+            
+            const { recommendations, recommendation_error } = Get_Recommendations();
+            if (recommendation_error) {
+                setToastMessage(recommendation_error);
+                setShowToast(true);
+            }
 
-        return (
-            <>
-                <Col className='gapsAndBackground'>
-                    <div className=' d-flex justify-content-between mb-2'>
-                        <span>Recommendation</span>
+            return (
+                <>
+                    <Col className='gapsAndBackground'>
+                        <div className=' d-flex justify-content-between mb-2'>
+                            <span>Recommendation</span>
+                        </div>
+                    </Col>
+                    <div className='d-flex scroll justify-content-between'>
+                        {recommendations?.map((res, index) => (
+                            <RecipePreview recipe={res} key={index} />
+                        ))}
                     </div>
-                </Col>
-                <div className='d-flex scroll justify-content-between'>
-                    {recommendations?.map((res, index) => (
-                        <RecipePreview recipe={res} key={index} />
-                    ))}
-                </div>
-            </>
-        );
-    } else {
-        // User doesn't exist in localStorage
-        return (
-            <></>
-        );
-    }
-};
+                </>
+            );
+        } else {
+            // User doesn't exist in localStorage
+            return (
+                <></>
+            );
+        }
+    };
 
 
     return(

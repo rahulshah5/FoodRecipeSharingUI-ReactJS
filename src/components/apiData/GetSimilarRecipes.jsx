@@ -9,16 +9,14 @@ export default function GetSimilarRecipes(id) {
         
         const fetchData = async () => {
             try {
-                // Make the first API call to get categorized recipes
                 const recipesResponse = await axios.get(`/similar-recipes/?recipe_id=${id}`);
-                setRecipes(recipesResponse.data);
-
+                setRecipes(recipesResponse.data)
             } catch (error) {
                 setError(error.message);
             }
         };
-
         fetchData();
+        
     }, [id]);
 
     return { similar_recipes,  error };
